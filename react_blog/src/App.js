@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 // jsx
 const App = () => {
   const [posts, setPosts] = useState([
@@ -11,6 +11,7 @@ const App = () => {
   const [id,setId]=useState(101)
   const [title,setTitle]=useState("")
   const [body,setBody]=useState("")
+
   const newPosts = posts.map((elem, i) => {
     return (
       <p key={i}>
@@ -24,6 +25,11 @@ const addNewPost=()=>{
   setPosts([...posts, {userId,id,title,body}])
 }
 
+useEffect(()=>{
+  axios.get('https://jsonplaceholder.typicode.com/posts').then((res)=>{
+    setPosts(res.data)
+  })
+},[])
   return (
     <>
       <div>
